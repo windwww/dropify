@@ -279,7 +279,18 @@ Dropify.prototype.setPreview = function(previewable, src)
         if (this.settings.height) {
             imgTag.css("max-height", this.settings.height);
         }
+// add dropify.beforeImagePreview Event
+        var self = this;
+        imgTag.load(function(){
+          var eventBefore = $.Event("dropify.beforeImagePreview");
+          self.input.trigger(eventBefore, [self]);
 
+        });
+
+        if (this.settings.height) {
+            imgTag.css("max-height", this.settings.height);
+        }
+	    
         imgTag.appendTo(render);
     } else {
         $('<i />').attr('class', 'dropify-font-file').appendTo(render);
